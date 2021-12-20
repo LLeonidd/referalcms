@@ -12,6 +12,10 @@
 
 @section('page_content')
   @if(Request::is('/'))
+    {{$id}}
+    @foreach ($users as $user)
+      <p>This is user name {{ $user->name }}</p>
+    @endforeach
     <h2>Условный блок, который отображается на главной</h2>
   @endif
 
