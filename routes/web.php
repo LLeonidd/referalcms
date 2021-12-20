@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\User\GetDataController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [GetDataController::class, 'index'])->middleware(['auth'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
