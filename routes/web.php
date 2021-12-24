@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GetDataController::class, 'index'])->middleware(['auth'])->name('home');
+Route::get('/debug', [GetDataController::class, 'debug'])->name('debug');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
