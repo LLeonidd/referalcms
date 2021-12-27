@@ -20,7 +20,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="/accaunt/" class="nav-link">
+      <a href="/account/" class="nav-link">
         <i class="nav-icon fas fa-user"></i>
         <p>
           Учетная запись

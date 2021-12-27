@@ -14,11 +14,8 @@ class SettingFactory extends Factory
     public function definition()
     {
         return [
-            'set_phone'=>true,
-            'set_whatsapp'=>true,
-            'set_email'=>true,
-            'set_address'=>true,
-            'enabled'=>true,
+            'name' => $this->faker->name,
+            'enabled' => true,
         ];
     }
 }

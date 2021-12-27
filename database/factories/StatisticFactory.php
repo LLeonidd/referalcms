@@ -16,6 +16,8 @@ class StatisticFactory extends Factory
         return [
             'source_host'=>$this->faker->freeEmailDomain(),
             'datetime_end' => $this->faker->iso8601(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

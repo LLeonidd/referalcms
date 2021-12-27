@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\InputDataFromRefController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/inputpoint', [InputDataFromRefController::class, 'refdata_store'])->name('inputpoint.refdata_store');
+#Route::post('/inputpoint/', [InputDataFromRefController::class, 'refdata_store'])->name('inputpoint.refdata_store');

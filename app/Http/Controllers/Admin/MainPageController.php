@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Statistic;
 
-class GetDataController extends Controller
+class MainPageController extends Controller
 {
     /**
      * Показать список всех пользователей приложения.
@@ -17,12 +18,20 @@ class GetDataController extends Controller
      */
     public function index()
     {
-      $users = DB::select('select * from users', [1]);
-      foreach ($users as $user) {
-          //dump($user);
-          //print($user->id);
-      }
-      return view('home', ['users' => $users, 'id'=>$user->id, ]);
+      $content = [
+        'user' => Auth::user(),
+        'statistics' => Statistic::select([
+          "source_host",
+          "url",
+          "name",
+          "statistics.created_at as ca",
+          "statistics.datetime_end as ce",
+        ])
+          ->join('sites', 'sites.id', 'statistics.site_id')
+          ->join('users', 'users.id', 'statistics.user_id')
+          ->where('user_id', Auth::user()->id)->get(),
+      ];
+      return view('home', $content);
     }
 
     public function debug()

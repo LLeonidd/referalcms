@@ -1,3 +1,20 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.content{
+  width:100%;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    box-shadow: none;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    box-shadow: none;
+}

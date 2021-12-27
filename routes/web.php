@@ -1,5 +1,10 @@
 <?php
-use App\Http\Controllers\User\GetDataController;
+use App\Http\Controllers\Admin\MainPageController;
+use App\Http\Controllers\Admin\UsersPageController;
+use App\Http\Controllers\Admin\StatisticsPageController;
+use App\Http\Controllers\Admin\AccountPageController;
+use App\Http\Controllers\Admin\SettingsPageController;
+use App\Http\Controllers\Admin\InputDataFromRefController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [GetDataController::class, 'index'])->middleware(['auth'])->name('home');
+Route::get('/', [MainPageController::class, 'index'])->middleware(['auth'])->name('home');
+Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
+
+Route::get('/users', [UsersPageController::class, 'main'])->middleware(['auth'])->name('users');
+Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
+Route::get('/account', [AccountPageController::class, 'main'])->middleware(['auth'])->name('account');
+Route::get('/settings', [SettingsPageController::class, 'main'])->middleware(['auth'])->name('sttings');
 Route::get('/debug', [GetDataController::class, 'debug'])->name('debug');
 
 Route::get('/dashboard', function () {

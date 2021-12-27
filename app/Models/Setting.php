@@ -18,4 +18,16 @@ class Setting extends Model
     public function site(){
       return $this->belongsTo(Site::class);
     }
+
+    public function phone(){
+      return $this->belongsTo(Phone::class);
+    }
+
+    public function email(){
+      return $this->belongsTo(Email::class);
+    }
+
+    public function address(){
+      return $this->belongsTo(Address::class);
+    }
 }

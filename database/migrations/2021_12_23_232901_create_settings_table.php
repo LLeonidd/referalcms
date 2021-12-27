@@ -16,14 +16,13 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->boolean('enabled')->default(false);
-            $table->boolean('set_phone')->default(true);
-            $table->boolean('set_email')->default(false);
-            $table->boolean('set_whatsapp')->default(true);
-            $table->boolean('set_address')->default(false);
+            $table->string('name')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-
             $table->unsignedBigInteger('site_id')->nullable();
             $table->foreign('site_id')->references('id')->on('sites')->nullOnDelete();
+            $table->foreignId('phone_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('email_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('address_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
