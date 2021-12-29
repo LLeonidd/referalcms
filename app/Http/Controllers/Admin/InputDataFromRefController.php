@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Site;
+use App\Models\Setting;
+use App\Models\Statistic;
 use App\Http\Resources\ReferalResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InputDataFromRefController extends Controller
 {
@@ -14,15 +19,57 @@ class InputDataFromRefController extends Controller
       return view('inputpoint');
     }
 
+
+    private static function _if_exist($array, $key){
+      /*
+      Returns if the array key exists
+      */
+      if (array_key_exists($key, $array)){
+        return (string)$array[$key];
+      } else {
+        return null;
+      }
+    }
+
+
     public function refdata_store(Request $request)
     {
-      // $validatedData = $request->validate([
-      //     'title' => ['required', 'unique:posts', 'max:255'],
-      //     'body' => ['required'],
-      // ]);
-      //return $request;
-      //return new ReferalResource(User::first());
-      return ReferalResource::collection(User::all());
-      //return response()->json(['link' => 'WWWW', 'msg' => 'EEEE']);;
+      $validatedData = $request->validate([
+          '_ref' => ['required', 'max:10'],
+          '_headers.Host' => ['required', 'max:300'],
+          '_headers.User-Agent' => ['nullable','max:1000'],
+          '_headers.referer' => ['nullable','max:1000'],
+      ]);
+
+      $user_id = (int)$validatedData['_ref'];
+      $site_url = (string)$validatedData['_headers']['Host'];
+      $referer_host = $this->_if_exist($validatedData['_headers'], 'referer');
+      $user_agent = $this->_if_exist($validatedData['_headers'], 'User-Agent');
+
+      $statistic_id = Statistic::create([
+        'referer_host' => $referer_host,
+        'user_agent' => $user_agent,
+        'user_id' => User::select('id')->find($user_id)->id,
+        'site_id' => Site::select('id')->where('url',$site_url)->first()->id,
+      ]);
+
+      $res = Setting::select([
+                'phones.number as number',
+                'phones.message as message',
+                'addresses.address',
+                'emails.email as email'
+                ]
+              )
+              ->join('sites', 'settings.site_id', '=','sites.id')
+              ->leftJoin('phones', 'settings.phone_id', '=', 'phones.id')
+              ->leftJoin('addresses', 'settings.address_id', '=', 'addresses.id')
+              ->leftJoin('emails', 'settings.email_id', '=', 'emails.id')
+              ->where('settings.user_id',$user_id)
+              ->where('sites.url', $site_url)->limit(1)->get();
+
+      return [
+        'setting' => ReferalResource::collection($res),
+        'statistic_id' => $statistic_id->id,
+      ];
     }
 }

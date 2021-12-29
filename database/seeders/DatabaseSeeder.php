@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
 
-     public function seed_for_user($user)
+     public function seed_for_user($user, $site)
      {
-       $site = Site::factory()->create();
+       //$site = Site::factory()->create();
        // For stress filling
        Phone::factory()->for($user)->count(5)->create();
        Email::factory()->for($user)->count(2)->create();
@@ -38,9 +38,8 @@ class DatabaseSeeder extends Seeder
         ->for($site)
         ->for($phone)
         ->for($email)
-        ->for($address)
-        ->count(3)->create();
-       Statistic::factory()->for($user)->for($site)->count(50)->create();
+        ->for($address)->create();
+       Statistic::factory()->for($user)->for($site)->count(5)->create();
      }
 
     public function run()
@@ -54,8 +53,17 @@ class DatabaseSeeder extends Seeder
 
       $user = User::factory()->create();
 
-      $this->seed_for_user($user);
-      $this->seed_for_user($super_user);
+      $site_local = Site::create([
+          'url' => '127.0.0.1:8000',
+          'rules' => '',
+      ]);
+      $site_remote = Site::create([
+          'url' => 'zhaluzi-v-krasnodare.ru',
+          'rules' => '',
+      ]);
+
+      $this->seed_for_user($user, $site_remote);
+      $this->seed_for_user($super_user, $site_local);
 
     }
 

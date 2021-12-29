@@ -18,11 +18,14 @@ class CreateSettingsTable extends Migration
             $table->boolean('enabled')->default(false);
             $table->string('name')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('site_id')->nullable();
-            $table->foreign('site_id')->references('id')->on('sites')->nullOnDelete();
-            $table->foreignId('phone_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('email_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('address_id')->constrained()->cascadeOnDelete();
+
+            $table->unsignedBigInteger('site_id');
+            $table->foreign('site_id')->references('id')->on('sites')->cascadeOnDelete();
+
+            $table->foreignId('phone_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('email_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('address_id')->nullable()->constrained()->nullOnDelete();
+            $table->unique(['site_id', 'user_id']);
             $table->timestamps();
         });
     }

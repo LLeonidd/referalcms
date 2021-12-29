@@ -10,6 +10,13 @@ class Statistic extends Model
     use HasFactory;
 
     public $timestamps = true;
+    protected $fillable = [
+        'referer_host',
+        'user_agent',
+        'datetime_end',
+        'user_id',
+        'site_id',
+    ];
 
 
     public function user(){

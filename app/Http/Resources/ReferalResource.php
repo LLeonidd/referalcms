@@ -15,7 +15,10 @@ class ReferalResource extends JsonResource
     public function toArray($request)
     {
         return [
-          'id' => $this->id,
+          'number' => $this->number,
+          'email' => $this->email,
+          'address' => $this->address,
+          'message' => $this->message,
         ];
     }
 }

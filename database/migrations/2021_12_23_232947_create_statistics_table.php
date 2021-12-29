@@ -15,14 +15,15 @@ class CreateStatisticsTable extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
           $table->id();
-          $table->string('source_host')->nullable();
-          $table->string('datetime_end')->comment('The time the user ended the session');
+          $table->string('referer_host')->nullable();
+          $table->string('user_agent')->nullable();
+          $table->string('datetime_end')->comment('The time the user ended the session')->nullable();
 
           $table->unsignedBigInteger('user_id')->nullable();
           $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
 
-          $table->unsignedBigInteger('site_id');
-          $table->foreign('site_id')->references('id')->on('sites')->cascadeOnDelete();
+          $table->unsignedBigInteger('site_id')->nullable();
+          $table->foreign('site_id')->references('id')->on('sites')->nullOnDelete();
           $table->timestamps();
         });
     }

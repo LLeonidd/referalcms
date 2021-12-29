@@ -21,14 +21,15 @@ class MainPageController extends Controller
       $content = [
         'user' => Auth::user(),
         'statistics' => Statistic::select([
-          "source_host",
-          "url",
-          "name",
+          "referer_host",
+          "sites.url as url",
+          "users.name as name",
+          "statistics.user_agent as user_agent",
           "statistics.created_at as ca",
           "statistics.datetime_end as ce",
         ])
-          ->join('sites', 'sites.id', 'statistics.site_id')
-          ->join('users', 'users.id', 'statistics.user_id')
+          ->leftJoin('sites', 'sites.id', 'statistics.site_id')
+          ->leftJoin('users', 'users.id', 'statistics.user_id')
           ->where('user_id', Auth::user()->id)->get(),
       ];
       return view('home', $content);

@@ -14,7 +14,8 @@ class StatisticFactory extends Factory
     public function definition()
     {
         return [
-            'source_host'=>$this->faker->freeEmailDomain(),
+            'referer_host'=>$this->faker->freeEmailDomain(),
+            'user_agent'=>$this->faker->userAgent(),
             'datetime_end' => $this->faker->iso8601(),
             'created_at' => now(),
             'updated_at' => now(),

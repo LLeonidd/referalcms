@@ -11,11 +11,48 @@
 @endsection
 
 @section('page_content')
+@php
+
+{{
+
+function _request_to_refcms(){
+  $data = json_encode(array(
+    '_headers' => getallheaders(),
+    '_ref' => $_GET['ref'] ?? NULL,
+  ));
+
+
+
+  $ch = curl_init('http://127.0.0.1:8000/index.php/api/inputpoint');
+  curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($ch);
+  curl_close($ch);
+  return $r = json_decode($response);
+}
+
+  $r = _request_to_refcms();
+
+  if ($r!=null){
+    foreach ($r->setting as $data){
+      echo $number = $data->number;
+      echo $address = $data->address;
+      echo $email = $data->email;
+      echo $message = $data->message;
+    }
+    echo $r->statistic_id;
+  }
+
+
+}}
+
+@endphp
 
 @endsection
-
 @section('scripts_after')
-  <script>
+  <!-- <script>
   //alert('{{ csrf_token() }}')
   $(function() {
     $.ajax({
@@ -33,5 +70,5 @@
       }
     });
   })
-  </script>
+  </script> -->
 @endsection

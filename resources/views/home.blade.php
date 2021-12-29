@@ -28,7 +28,8 @@
               <tr>
                 <th>Переход из</th>
                 <th>Сайт</th>
-                <th>Пользователь</th>
+                <th>User-Agent</th>
+                <!-- <th>Пользователь</th> -->
                 <th>Дата визита</th>
                 <th>Дата выхода</th>
               </tr>
@@ -36,9 +37,10 @@
               <tbody>
                 @foreach ($statistics as $item_stat)
                 <tr>
-                  <td>{{ $item_stat->source_host }}</td>
+                  <td>{{ $item_stat->referer_host }}</td>
                   <td>{{ $item_stat->url }}</td>
-                  <td>{{$item_stat->name}}</td>
+                  <td>{{ $item_stat->user_agent }}</td>
+                  <!-- <td>{{$item_stat->name}}</td> -->
                   <td>{{ $item_stat->ca }}</td>
                   <td>{{ $item_stat->ce }}</td>
                 </tr>
@@ -71,6 +73,7 @@
       "lengthChange": false,
       "searching": true,
       "ordering": true,
+      "order": [[ 3, "desc" ]],
       "info": true,
       "autoWidth": false,
       "responsive": true,
