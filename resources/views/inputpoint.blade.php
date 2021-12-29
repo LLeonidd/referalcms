@@ -22,7 +22,6 @@ function _request_to_refcms(){
   ));
 
 
-
   $ch = curl_init('http://127.0.0.1:8000/index.php/api/inputpoint');
   curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -41,6 +40,7 @@ function _request_to_refcms(){
       echo $address = $data->address;
       echo $email = $data->email;
       echo $message = $data->message;
+      echo $rules = $data->rules;
     }
     echo $r->statistic_id;
   }

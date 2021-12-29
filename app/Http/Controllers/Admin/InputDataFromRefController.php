@@ -46,18 +46,23 @@ class InputDataFromRefController extends Controller
       $referer_host = $this->_if_exist($validatedData['_headers'], 'referer');
       $user_agent = $this->_if_exist($validatedData['_headers'], 'User-Agent');
 
-      $statistic_id = Statistic::create([
-        'referer_host' => $referer_host,
-        'user_agent' => $user_agent,
-        'user_id' => User::select('id')->find($user_id)->id,
-        'site_id' => Site::select('id')->where('url',$site_url)->first()->id,
-      ]);
+
+      if (User::pluck('id')->containsStrict($user_id)){ //Check if user in db safety
+        $statistic_id = Statistic::create([
+          'referer_host' => $referer_host,
+          'user_agent' => $user_agent,
+          'user_id' => User::select('id')->find($user_id)->id,
+          'site_id' => Site::select('id')->where('url',$site_url)->limit(1)->value('id'),
+        ]);
+      }
+
 
       $res = Setting::select([
                 'phones.number as number',
                 'phones.message as message',
                 'addresses.address',
-                'emails.email as email'
+                'emails.email as email',
+                'sites.rules as rules',
                 ]
               )
               ->join('sites', 'settings.site_id', '=','sites.id')
