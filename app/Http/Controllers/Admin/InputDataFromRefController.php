@@ -36,15 +36,15 @@ class InputDataFromRefController extends Controller
     {
       $validatedData = $request->validate([
           '_ref' => ['required', 'max:10'],
-          '_headers.Host' => ['required', 'max:300'],
-          '_headers.User-Agent' => ['nullable','max:1000'],
-          '_headers.referer' => ['nullable','max:1000'],
+          '_headers.host' => ['required', 'max:300'],
+          '_headers.user-agent' => ['nullable','max:200'],
+          '_headers.referer' => ['nullable','max:200'],
       ]);
 
       $user_id = (int)$validatedData['_ref'];
-      $site_url = (string)$validatedData['_headers']['Host'];
+      $site_url = (string)$validatedData['_headers']['host'];
       $referer_host = $this->_if_exist($validatedData['_headers'], 'referer');
-      $user_agent = $this->_if_exist($validatedData['_headers'], 'User-Agent');
+      $user_agent = $this->_if_exist($validatedData['_headers'], 'user-agent');
 
 
       if (User::pluck('id')->containsStrict($user_id)){ //Check if user in db safety
