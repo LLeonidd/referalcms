@@ -37,15 +37,6 @@
         </p>
       </a>
     </li>
-    <li class="nav-item">
-      <a href="/index.php/inputpoint/?ref=0001" class="nav-link">
-        <i class="nav-icon fas fa-users"></i>
-        <p>
-          Тетовая страницы
-          <span class="right badge badge-danger"></span>
-        </p>
-      </a>
-    </li>
   </ul>
 </nav>
 <!-- /.sidebar-menu -->

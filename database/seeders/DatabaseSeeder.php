@@ -46,12 +46,35 @@ class DatabaseSeeder extends Seeder
     {
       //Create SuperUser
       $super_user = User::create([
-                      'name' => 'admin',
-                      'password' => Hash::make('12345678'),
-                      'email' => 'admin@gmail.com',
+                      'name' => env('DEFAULT_USER_NAME'),
+                      'password' => Hash::make(env('DEFAULT_USER_PASSWORD')),
+                      'email' => env('DEFAULT_USER_EMAIL'),
                     ]);
 
-      $user = User::factory()->create();
+      $user0 = User::create([
+                      'name' => 'Дмитрий',
+                      'password' => Hash::make('12345678'),
+                      'email' => env('dmitrii@gmail.com'),
+                    ]);
+
+      $user1 = User::create([
+                      'name' => 'User1',
+                      'password' => Hash::make('12345678'),
+                      'email' => env('user1@gmail.com'),
+                    ]);
+
+      $user2 = User::create([
+                      'name' => 'User2',
+                      'password' => Hash::make('12345678'),
+                      'email' => env('user2@gmail.com'),
+                    ]);
+
+      $user3 = User::create([
+                      'name' => 'User3',
+                      'password' => Hash::make('12345678'),
+                      'email' => env('user3@gmail.com'),
+                    ]);
+
 
       $site_local = Site::create([
           'url' => '127.0.0.1:8000',
@@ -59,12 +82,16 @@ class DatabaseSeeder extends Seeder
       ]);
       $site_remote = Site::create([
           'url' => 'zhaluzi-v-krasnodare.ru',
-          'rules' => '',
+          'rules' => htmlspecialchars("$('#footer_phone_number').html(formatPhoneNumber($phone_number_human));  $('#number_phone').html(formatPhoneNumber($phone_number_human));  $('#contact_items #number_phone_contact').html('<i class=\"la la-mobile-phone\"></i> '+$phone_number_human+'');  $('#contact_items #number_phone_contact').attr('href', 'tel:'+$phone_number_raw);  $('#contact_items #whatsapp_link').attr('href', 'https://api.whatsapp.com/send?phone='+$phone_number_raw+'&amp;text='+$whats_app_message); $($('.social_wrapper li')[0]).find('a').attr('href', 'https://api.whatsapp.com/send?phone='+$phone_number_raw+'&amp;text='+$whats_app_message);  $('#men_1 a').html('<i class=\"la la-mobile-phone\"></i> '+$phone_number_human);  $('#men_1 a').attr('href', 'tel:'+$phone_number_raw);  $('.phone-mobile-header a').html('<i class=\"la la-mobile-phone\"></i> '+$phone_number_human);  $('.phone-mobile-header a').attr('href', 'tel:'+$phone_number_raw);"),
       ]);
 
-      $this->seed_for_user($user, $site_remote);
+      $this->seed_for_user($super_user, $site_remote);
       $this->seed_for_user($super_user, $site_local);
-
+      $this->seed_for_user($user0, $site_remote);
+      $this->seed_for_user($user1, $site_remote);
+      $this->seed_for_user($user2, $site_remote);
+      $this->seed_for_user($user3, $site_remote);
+      
     }
 
 

@@ -15,34 +15,51 @@
 
 {{
 
-function _request_to_refcms(){
-  $data = json_encode(array(
-    '_headers' => getallheaders(),
-    '_ref' => $_GET['ref'] ?? NULL,
-  ));
+  //Referal scripts
 
 
-  $ch = curl_init('http://127.0.0.1:8000/index.php/api/inputpoint');
-  curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $URL_REFERAL_CRM = 'http://ref.lleonidd.tmweb.ru/api/inputpoint';
+  function _request_to_refcms($url){
+  	$data = json_encode(array(
+  		'_headers' => array_change_key_case(getallheaders()),//
+  		'_ref' => $_GET['ref'] ?? NULL,
+  	));
 
-  $response = curl_exec($ch);
-  curl_close($ch);
-  return $r = json_decode($response);
-}
 
-  $r = _request_to_refcms();
 
-  if ($r!=null){
-    foreach ($r->setting as $data){
-      echo $number = $data->number;
-      echo $address = $data->address;
-      echo $email = $data->email;
-      echo $message = $data->message;
-      echo $rules = $data->rules;
-    }
-    echo $r->statistic_id;
+  	$ch = curl_init($url);
+  	curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
+  	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+  	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  	$response = curl_exec($ch);
+  	curl_close($ch);
+  	return $r = json_decode($response);
+  }
+
+
+  if(!empty($_GET['ref'])){
+  	 session_unset();
+  	 // Security check
+  	 $_GET['ref'] = preg_replace("#[^a-z\_\-0-9]+#i",'',$_GET['ref']);
+  	 if ($_GET['ref'] != '') {
+
+  	   $r = _request_to_refcms($URL_REFERAL_CRM);
+
+  	   if ($r!=null){
+  	     foreach ($r->setting as $data){
+  	       echo $number = $data->number;
+  	       echo $address = $data->address;
+  	       echo $email = $data->email;
+  	       echo $message = $data->message;
+  	       echo $rules = $data->rules;
+  	     }
+  	     echo $r->statistic_id;
+  	   }
+
+  		 // write data in session
+  		 //$_SESSION['ref_login'] = 'test_referal';
+  	 }
   }
 
 
