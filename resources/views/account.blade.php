@@ -20,13 +20,13 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>{{ $account -> name }}</h3>
-            <p>{{ $account -> login}}</p>
+            <h3 id="box_user_name">{{ $account -> name }}</h3>
+            <p id="box_user_email"> {{ $account -> login}}</p>
           </div>
           <div class="icon">
             <i class="ion ion-person"></i>
           </div>
-          <a href="#" class="small-box-footer">Изменить <i class="fas fa-edit"></i></a>
+          <a href="#" class="small-box-footer update_user_btn" data-toggle="modal" data-target="#modal_user">Изменить <i class="fas fa-edit"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -40,7 +40,7 @@
           <div class="icon">
             <i class="ion ion-android-call"></i>
           </div>
-          <a href="add_phone/" class="small-box-footer">Добавить телефон <i class="fas fa-plus-circle"></i></a>
+          <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#modal_phone">Добавить телефон <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -54,7 +54,7 @@
           <div class="icon">
             <i class="ion ion-android-mail"></i>
           </div>
-          <a href="add_email/" class="small-box-footer">Добавить email <i class="fas fa-plus-circle"></i></a>
+          <a href="add_email/" class="small-box-footer" data-toggle="modal" data-target="#modal_email">Добавить email <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -68,7 +68,7 @@
           <div class="icon">
             <i class="ion ion-android-locate"></i>
           </div>
-          <a href="add_address/" class="small-box-footer">Добавить адрес<i class="fas fa-plus-circle"></i></a>
+          <a href="add_address/" class="small-box-footer" data-toggle="modal" data-target="#modal_address">Добавить адрес<i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -98,6 +98,7 @@
                     <table id="phones_table" class="table table-bordered table-striped">
                       <thead>
                       <tr>
+                        <th>#</th>
                         <th>Телефон</th>
                         <th>Сообщение в Whatsapp</th>
                         <th></th>
@@ -106,10 +107,11 @@
                       <tbody>
                       @foreach ($account -> phone as $phone)
                       <tr>
-                        <td>{{ $phone -> number }}</td>
-                        <td>{{ $phone -> message }} </td>
+                        <td>{{ $phone -> id }}</td>
+                        <td class="phone_number_value">{{ $phone -> number }}</td>
+                        <td class="phone_message_value">{{ $phone -> message }} </td>
                         <td class="project-actions text-right">
-                          <a class="btn btn-info btn-sm" href="edit_phone/?id={{ $phone -> id }}">
+                          <a class="btn btn-info btn-sm phone_edit_btn"  href="#" data-id="{{ $phone->id }}" data-toggle="modal" data-target="#modal_phone_edit">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Изменить
@@ -122,7 +124,7 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer clearfix">
-                    <a href="add_phone/" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Добавить телефон</a>
+                    <a class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_phone"><i class="fas fa-plus"></i> Добавить телефон</a>
                   </div>
                 </div>
               </div>
@@ -136,6 +138,7 @@
                     <table id="emails_table" class="table table-bordered table-striped">
                       <thead>
                       <tr>
+                        <th>#</th>
                         <th>Email</th>
                         <th></th>
                       </tr>
@@ -143,6 +146,7 @@
                       <tbody>
                       @foreach ($account -> email as $email)
                       <tr>
+                        <td>{{ $email -> id }} </td>
                         <td>{{ $email -> email }} </td>
                         <td class="project-actions text-right">
                           <a class="btn btn-info btn-sm" href="edit_email/?id={{ $email -> id }}">
@@ -158,7 +162,7 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer clearfix">
-                    <a href="add_phone/" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Добавить Email</a>
+                    <a href="add_phone/" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_email"><i class="fas fa-plus"></i> Добавить Email</a>
                   </div>
                 </div>
               </div>
@@ -194,7 +198,7 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer clearfix">
-                    <a href="add_address/" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Добавить адрес</a>
+                    <a href="add_address/" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_address"><i class="fas fa-plus"></i> Добавить адрес</a>
                   </div>
                 </div>
               </div>
@@ -210,16 +214,32 @@
   </div>
 </section>
 
+@include('inc/modals/user')
+@include('inc/modals/phone')
+@include('inc/modals/phone_edit')
+@include('inc/modals/email')
+@include('inc/modals/address')
+
 @endsection
 
 @section('scripts_after')
+<!-- Toastr -->
+<script src="{{ asset ("/bower_components/admin-lte/plugins/toastr/toastr.min.js") }}"></script>
+<!-- InputMask -->
+<script src="{{ asset ("/bower_components/admin-lte/plugins/moment/moment.min.js") }}"></script>
+<script src="{{ asset ("/bower_components/admin-lte/plugins/inputmask/jquery.inputmask.min.js") }}"></script>
+@endsection
+
+@push('scripts_after')
 <script>
   $(function () {
     $('#phones_table').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": false,
       "searching": true,
       "ordering": true,
+      "order":[[0, 'desc']],
+      "aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }],
       "info": true,
       "autoWidth": false,
       "responsive": true,
@@ -227,10 +247,12 @@
   });
   $(function () {
     $('#emails_table').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": false,
       "searching": true,
       "ordering": true,
+      "order":[[0, 'desc']],
+      "aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }],
       "info": true,
       "autoWidth": false,
       "responsive": true,
@@ -238,7 +260,7 @@
   });
   $(function () {
     $('#addresses_table').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": false,
       "searching": true,
       "ordering": true,
@@ -247,5 +269,7 @@
       "responsive": true,
     });
   });
+
 </script>
-@endsection
+
+@endpush

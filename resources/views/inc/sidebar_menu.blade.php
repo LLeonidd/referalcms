@@ -11,19 +11,19 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="/settings/" class="nav-link">
-        <i class="nav-icon fas fa-cog"></i>
+      <a href="/account/" class="nav-link">
+        <i class="nav-icon fas fa-user"></i>
         <p>
-          Настройки
+          Учетная запись
           <span class="right badge badge-danger"></span>
         </p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="/account/" class="nav-link">
-        <i class="nav-icon fas fa-user"></i>
+      <a href="/settings/" class="nav-link">
+        <i class="nav-icon fas fa-cog"></i>
         <p>
-          Учетная запись
+          Настройки
           <span class="right badge badge-danger"></span>
         </p>
       </a>

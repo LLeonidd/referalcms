@@ -43,18 +43,18 @@ if ($_SESSION['ref_login'] == true){?>
 	 <script>
 	 	function formatPhoneNumber(phoneNumberString) {
 	     var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
-	     var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{2})(\d{2})$/)
+	     var match = cleaned.match(/^(7|)?(\d{3})(\d{3})(\d{2})(\d{2})$/)
 	     if (match) {
-	       var intlCode = (match[1] ? '+1 ' : '')
+	       var intlCode = (match[1] ? '+7 ' : '')
 	       return [intlCode, '(', match[2], ') ', match[3], '-', match[4], '-', match[5]].join('')
 	     }
 	     return null
 	   }
 
-	 $phone_number_raw = '<?php echo $_SESSION['number'];?>'
-	 $phone_number_human = formatPhoneNumber('<?php echo $_SESSION['number'];?>')
-	 $whats_app_message = '<?php echo $_SESSION['message']; ?>'
-	 $address = '<?php echo $_SESSION['address']; ?>'
+	 _phone_number_raw = '<?php echo $_SESSION['number'];?>'
+	 _phone_number_human = formatPhoneNumber('<?php echo $_SESSION['number'];?>')
+	 _whats_app_message = '<?php echo $_SESSION['message']; ?>'
+	 _address = '<?php echo $_SESSION['address']; ?>'
 
 	 eval("<?php echo $_SESSION['rules'];?>")
  </script>

@@ -625,9 +625,6 @@ select {
 .float-right {
   float: right;
 }
-.float-left {
-  float: left;
-}
 .m-0 {
   margin: 0px;
 }
@@ -1186,6 +1183,12 @@ select {
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
+    box-shadow: none;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
     box-shadow: none;
 }
 .hover\:border-gray-300:hover {

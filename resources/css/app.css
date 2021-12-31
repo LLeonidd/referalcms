@@ -18,3 +18,9 @@
     border-color: #007bff;
     box-shadow: none;
 }
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    box-shadow: none;
+}

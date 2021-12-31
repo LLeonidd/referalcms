@@ -26,7 +26,7 @@
           <div class="icon">
             <i class="ion ion-plus"></i>
           </div>
-          <a href="add/" class="small-box-footer">Создать программу <i class="fas fa-plus-circle"></i></a>
+          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal_setting">Создать программу <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -45,10 +45,11 @@
               <thead>
               <tr>
                 <th>Название</th>
-                <th>Сайт</th>
+                <th>Реферальная ссылка</th>
                 <th>Телефон</th>
                 <th>Email</th>
                 <th>Адрес</th>
+                <th>Статус</th>
                 <th></th>
               </tr>
               </thead>
@@ -56,10 +57,18 @@
                 @foreach ($settings as $item)
                 <tr>
                   <td><a href="?id={{ $item -> id }}">{{ $item -> settings_name }}</a></td>
-                  <td>{{ $item -> sites_url }}</td>
+                  <td><a href="http://{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}">{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}</a></td>
                   <td>{{ $item -> number }}</td>
                   <td>{{ $item -> email }}</td>
                   <td>{{ $item -> address }}</td>
+                  <td>
+                    <div class="form-group">
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="_enabled_{{ $item->id }}" @if($item->enabled) checked="" @endif >
+                        <label class="custom-control-label" for="_enabled__enabled_{{ $item->id }}"></label>
+                      </div>
+                    </div>
+                  </td>
                   <td class="project-actions text-right">
                     <a class="btn btn-info btn-sm" href="?id={{ $item -> id }}">
                         <i class="fas fa-pencil-alt">
@@ -87,9 +96,15 @@
   <!-- /.container-fluid -->
 </section>
 
+@include('inc/modals/setting')
+
 @endsection
 
+
 @section('scripts_after')
+<!-- Toastr -->
+<script src="{{ asset ("/bower_components/admin-lte/plugins/toastr/toastr.min.js") }}"></script>
+
 <script>
   $(function () {
     $('#settings_table').DataTable({
