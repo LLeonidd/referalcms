@@ -27,9 +27,9 @@ class SettingsPageController extends Controller
                     'addresses.address'
                   ])
                   -> join('users', 'user_id', 'users.id')
-                  -> join('emails', 'email_id', 'emails.id')
-                  -> join('phones', 'phone_id', 'phones.id')
-                  -> join('addresses', 'address_id', 'addresses.id')
+                  -> leftJoin('emails', 'email_id', 'emails.id')
+                  -> leftJoin('phones', 'phone_id', 'phones.id')
+                  -> leftJoin('addresses', 'address_id', 'addresses.id')
                   -> join('sites', 'site_id', 'sites.id')
                   -> where('settings.user_id', Auth::user()->id)
                   -> get();
