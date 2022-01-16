@@ -16,6 +16,7 @@ class StatisticFactory extends Factory
         return [
             'referer_host'=>$this->faker->freeEmailDomain(),
             'user_agent'=>$this->faker->userAgent(),
+            'session_id'=>$this->faker->md5(),
             'datetime_end' => $this->faker->iso8601(),
             'created_at' => now(),
             'updated_at' => now(),

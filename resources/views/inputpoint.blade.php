@@ -16,13 +16,12 @@
 {{
 
   //Referal scripts
-
-
-  $URL_REFERAL_CRM = 'http://ref.lleonidd.tmweb.ru/api/inputpoint';
+  $URL_REFERAL_CRM = 'http://127.0.0.1:8000/index.php/api/inputpoint';
   function _request_to_refcms($url){
   	$data = json_encode(array(
-  		'_headers' => array_change_key_case(getallheaders()),//
+  		'_headers' => array_change_key_case(getallheaders()),
   		'_ref' => $_GET['ref'] ?? NULL,
+      '_session_id' => '12345678',
   	));
 
 
@@ -45,7 +44,7 @@
   	 if ($_GET['ref'] != '') {
 
   	   $r = _request_to_refcms($URL_REFERAL_CRM);
-
+       echo($r);
   	   if ($r!=null){
   	     foreach ($r->setting as $data){
   	       echo $number = $data->number;

@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainPageController::class, 'index'])->middleware(['auth'])->name('home');
-//Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
+Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
 
 Route::get('/users', [UsersPageController::class, 'main'])->middleware(['auth'])->name('users');
 //Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');

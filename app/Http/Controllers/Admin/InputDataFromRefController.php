@@ -53,6 +53,7 @@ class InputDataFromRefController extends Controller
         $statistic_id = Statistic::create([
           'referer_host' => $referer_host,
           'user_agent' => $user_agent,
+          'session_id' => $session_id,
           'user_id' => User::select('id')->find($user_id)->id,
           'site_id' => Site::select('id')->where('url',$site_url)->limit(1)->value('id'),
         ]);
