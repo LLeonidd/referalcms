@@ -28,7 +28,8 @@ Route::get('/', [MainPageController::class, 'index'])->middleware(['auth'])->nam
 //Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
 
 Route::get('/users', [UsersPageController::class, 'main'])->middleware(['auth'])->name('users');
-Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
+//Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
+Route::get('/statistics', [MainPageController::class, 'index'])->middleware(['auth'])->name('statistics');
 Route::get('/account', [AccountPageController::class, 'main'])->middleware(['auth'])->name('account');
 Route::get('/settings', [SettingsPageController::class, 'main'])->middleware(['auth'])->name('settings');
 Route::get('/debug', [GetDataController::class, 'debug'])->name('debug');

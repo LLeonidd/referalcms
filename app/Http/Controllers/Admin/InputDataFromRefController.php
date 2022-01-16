@@ -36,12 +36,14 @@ class InputDataFromRefController extends Controller
     {
       $validatedData = $request->validate([
           '_ref' => ['required', 'max:10'],
+          '_session_id' => ['required', 'max:100'],
           '_headers.host' => ['required', 'max:300'],
           '_headers.user-agent' => ['nullable','max:200'],
           '_headers.referer' => ['nullable','max:200'],
       ]);
 
       $user_id = (int)$validatedData['_ref'];
+      $session_id = (int)$validatedData['_session_id'];
       $site_url = (string)$validatedData['_headers']['host'];
       $referer_host = $this->_if_exist($validatedData['_headers'], 'referer');
       $user_agent = $this->_if_exist($validatedData['_headers'], 'user-agent');
@@ -63,6 +65,7 @@ class InputDataFromRefController extends Controller
                 'addresses.address',
                 'emails.email as email',
                 'sites.rules as rules',
+                'settings.user_id as ref_id'
                 ]
               )
               ->join('sites', 'settings.site_id', '=','sites.id')

@@ -20,6 +20,7 @@ class ReferalResource extends JsonResource
           'address' => $this->address,
           'message' => $this->message,
           'rules' => $this->rules,
+          'ref_id' => $this->ref_id,
         ];
     }
 }
