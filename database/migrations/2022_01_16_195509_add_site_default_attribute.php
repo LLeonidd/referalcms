@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatisticSessionidAttribute extends Migration
+class AddSiteDefaultAttribute extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddStatisticSessionidAttribute extends Migration
      */
     public function up()
     {
-      Schema::table('statistics', function(Blueprint $table){
-        $table->char('session_id', 100)->nullable->default(NULL);
+      Schema::table('sites', function(Blueprint $table){
+        $table->boolean('default')->nullable()->default(NULL);
+        $table->unique(['default']);
       });
     }
 
@@ -25,8 +26,8 @@ class AddStatisticSessionidAttribute extends Migration
      */
     public function down()
     {
-      Schema::table('statistics', function ($table) {
-        $table->dropColumn('session_id');
+      Schema::table('sites', function ($table) {
+        $table->dropColumn('default');
       });
     }
 }

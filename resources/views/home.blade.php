@@ -32,6 +32,7 @@
                 <!-- <th>Пользователь</th> -->
                 <th>Дата визита</th>
                 <th>Дата выхода</th>
+                <th>Сессия</th>
               </tr>
               </thead>
               <tbody>
@@ -43,6 +44,7 @@
                   <!-- <td>{{$item_stat->name}}</td> -->
                   <td>{{ $item_stat->ca }}</td>
                   <td>{{ $item_stat->ce }}</td>
+                  <td>{{ $item_stat->session_id }}</td>
                 </tr>
 
                 @endforeach

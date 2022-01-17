@@ -25,6 +25,7 @@ class MainPageController extends Controller
           "sites.url as url",
           "users.name as name",
           "statistics.user_agent as user_agent",
+          "statistics.session_id as session_id",
           "statistics.created_at as ca",
           "statistics.datetime_end as ce",
         ])

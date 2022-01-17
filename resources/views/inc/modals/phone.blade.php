@@ -83,6 +83,8 @@ $('#add_phone_btn').click(function(){
                    toastr.error(error[0]);
                    $('#'+i).addClass('is-invalid');
               });
+          } else {
+            console.log(err.responseJSON);
           }
       }
    })

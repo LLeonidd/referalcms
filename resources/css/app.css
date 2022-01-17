@@ -24,3 +24,10 @@
     border-color: #dc3545;
     box-shadow: none;
 }
+
+.item_account_detail, ._toggle{
+  display:none;
+}
+.item_toggle{
+  cursor:pointer;
+}

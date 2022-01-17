@@ -11,9 +11,42 @@
 @endsection
 
 @section('page_content')
+
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
+
+
+    <div class="row">
+      @if ($default_setting)
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success btn" title="Копировать реферальную ссылку" id="copy_ref"><i class="far fa-copy"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Основная реферальная ссылка</span>
+            <span class="info-box-number"><a target="_blank" href="{{ $default_setting->url}}/?ref={{ $account ->id }}">
+              {{ $default_setting->url}}/?ref={{ $account ->id }}
+            </a></span>
+            <input style="height: 0px;" id="default_ref_link" value="{{ $default_setting->url}}/?ref={{ $account ->id }}">
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      @else
+      <div class="col-md-6 col-sm-6 col-12">
+        <div class="alert alert-warning alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h5><i class="icon fas fa-exclamation-triangle"></i> У Вас пока нет реферальной ссылки. Добавьте телефон (email или адрес)</h5>
+        </div>
+      </div>
+
+      @endif
+    </div>
+
+
 
     <div class="row">
       <div class="col-lg-3 col-6">
@@ -33,7 +66,7 @@
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-success">
-          <div class="inner">
+          <div class="inner item_toggle" data-toggle="phone_details">
             <h3>{{ $account->phone->count() }}<sup style="font-size: 20px"></sup></h3>
             <p>Привязано телефонов</p>
           </div>
@@ -47,7 +80,7 @@
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-warning">
-          <div class="inner">
+          <div class="inner item_toggle" data-toggle="email_details">
             <h3>{{ $account->email->count() }}<sup style="font-size: 20px"></sup></h3>
             <p>Привязано Email-адресов</p>
           </div>
@@ -61,7 +94,7 @@
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-secondary">
-          <div class="inner">
+          <div class="inner item_toggle" data-toggle="address_details">
             <h3>{{ $account->address->count() }}<sup style="font-size: 20px"></sup></h3>
             <p>Привязано адресов</p>
           </div>
@@ -77,140 +110,138 @@
 
 
 
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row" id="account_details">
+      @if ( $account->phone->count() or $account->email->count() or $account->address->count())
+      @if ($account->phone->count())
+      <div class="col-md-12 item_account_detail" id="phone_details">
         <div class="card">
           <div class="card-header p-2">
-            <ul class="nav nav-pills">
-              <li class="nav-item"><a class="nav-link active" href="#phones" data-toggle="tab">Телефоны</a></li>
-              <li class="nav-item"><a class="nav-link" href="#emails" data-toggle="tab">Emails</a></li>
-              <li class="nav-item"><a class="nav-link" href="#addresses" data-toggle="tab">Адреса</a></li>
-            </ul>
+            <h3 class="card-title">Телефоны</h3>
           </div><!-- /.card-header -->
           <div class="card-body">
-            <div class="tab-content">
-              <div class="tab-pane active" id="phones">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Список добавленных телефонов</h3>
-                  </div>
-                  <div class="card-body">
-                    <table id="phones_table" class="table table-bordered table-striped">
-                      <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Телефон</th>
-                        <th>Сообщение в Whatsapp</th>
-                        <th></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      @foreach ($account -> phone as $phone)
-                      <tr>
-                        <td>{{ $phone -> id }}</td>
-                        <td class="phone_number_value">{{ $phone -> number }}</td>
-                        <td class="phone_message_value">{{ $phone -> message }} </td>
-                        <td class="project-actions text-right">
-                          <a class="btn btn-info btn-sm phone_edit_btn"  href="#" data-id="{{ $phone->id }}" data-toggle="modal" data-target="#modal_phone_edit">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Изменить
-                          </a>
-                        </td>
-                      </tr>
-                      @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer clearfix">
-                    <a class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_phone"><i class="fas fa-plus"></i> Добавить телефон</a>
-                  </div>
-                </div>
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="emails">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Список добавленных Email</h3>
-                  </div>
-                  <div class="card-body">
-                    <table id="emails_table" class="table table-bordered table-striped">
-                      <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Email</th>
-                        <th></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      @foreach ($account -> email as $email)
-                      <tr>
-                        <td>{{ $email -> id }} </td>
-                        <td>{{ $email -> email }} </td>
-                        <td class="project-actions text-right">
-                          <a class="btn btn-info btn-sm" href="edit_email/?id={{ $email -> id }}">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Изменить
-                          </a>
-                        </td>
-                      </tr>
-                      @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer clearfix">
-                    <a href="add_phone/" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_email"><i class="fas fa-plus"></i> Добавить Email</a>
-                  </div>
-                </div>
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="addresses">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Список добавленных адресов</h3>
-                  </div>
-                  <div class="card-body">
-                    <table id="addresses_table" class="table table-bordered table-striped">
-                      <thead>
-                      <tr>
-                        <th>Адрес</th>
-                        <th></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      @foreach ($account -> address as $address)
-                      <tr>
-                        <td>{{ $address -> address }} </td>
-                        <td class="project-actions text-right">
-                          <a class="btn btn-info btn-sm" href="edit_address/?id={{ $address -> id }}">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Изменить
-                          </a>
-                        </td>
-                      </tr>
-                      @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer clearfix">
-                    <a href="add_address/" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_address"><i class="fas fa-plus"></i> Добавить адрес</a>
-                  </div>
-                </div>
-              </div>
-              <!-- /.tab-pane -->
-            </div>
-            <!-- /.tab-content -->
+            <table id="phones_table" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Телефон</th>
+                <th>Сообщение в Whatsapp</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              @foreach ($account -> phone as $phone)
+              <tr>
+                <td>{{ $phone -> id }}</td>
+                <td class="phone_number_value">{{ $phone -> number }}</td>
+                <td class="phone_message_value">{{ $phone -> message }} </td>
+                <td class="project-actions text-right">
+                  <a class="btn btn-info btn-sm phone_edit_btn"  href="#" data-id="{{ $phone->id }}" data-toggle="modal" data-target="#modal_phone_edit">
+                      <i class="fas fa-pencil-alt">
+                      </i>
+                      Изменить
+                  </a>
+                </td>
+              </tr>
+              @endforeach
+              </tbody>
+            </table>
+          <!-- /.card-body -->
+          <div class="card-footer clearfix">
+            <a class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_phone"><i class="fas fa-plus"></i> Добавить телефон</a>
+          </div>
           </div><!-- /.card-body -->
         </div>
         <!-- /.card -->
       </div>
+      @endif
 
+
+      @if ($account->email->count())
+      <div class="col-md-12 item_account_detail" id="email_details">
+        <div class="card">
+          <div class="card-header p-2">
+            <h3 class="card-title">Emails</h3>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <table id="emails_table" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Email</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              @foreach ($account -> email as $email)
+              <tr>
+                <td>{{ $email -> id }} </td>
+                <td>{{ $email -> email }} </td>
+                <td class="project-actions text-right">
+                  <a class="btn btn-info btn-sm" href="edit_email/?id={{ $email -> id }}">
+                      <i class="fas fa-pencil-alt">
+                      </i>
+                      Изменить
+                  </a>
+                </td>
+              </tr>
+              @endforeach
+              </tbody>
+            </table>
+          <!-- /.card-body -->
+          <div class="card-footer clearfix">
+            <a class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_email"><i class="fas fa-plus"></i> Добавить email</a>
+          </div>
+          </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      @endif
+
+
+      @if ($account->address->count())
+      <div class="col-md-12 item_account_detail" id="address_details">
+        <div class="card">
+          <div class="card-header p-2">
+            <h3 class="card-title">Адреса</h3>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <table id="addresses_table" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Адрес</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($account -> address as $address)
+                <tr>
+                  <td>{{ $address -> address }} </td>
+                  <td class="project-actions text-right">
+                    <a class="btn btn-info btn-sm" href="edit_address/?id={{ $address -> id }}">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        Изменить
+                    </a>
+                  </td>
+                </tr>
+                @endforeach
+                </tbody>
+              </table>
+          <!-- /.card-body -->
+          <div class="card-footer clearfix">
+            <a class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_address"><i class="fas fa-plus"></i> Добавить адрес</a>
+          </div>
+          </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      @endif
+
+
+
+    @endif
     </div>
+
   </div>
 </section>
 
@@ -231,6 +262,26 @@
 @endsection
 
 @push('scripts_after')
+<script>
+$('.item_toggle').click(function(){
+    var id = $(this).data('toggle')
+    $('.item_account_detail').each(function(i,item){
+      if (item.id == id){
+        $(item).toggle()
+      } else {
+        $(item).hide()
+      }
+    })
+  })
+</script>
+<script>
+  $('#copy_ref').click(function(){
+    var copyText = document.getElementById("default_ref_link");
+    copyText.select();
+    document.execCommand("copy");
+    toastr.success('Скопирована реферальная ссылка');
+  })
+</script>
 <script>
   $(function () {
     $('#phones_table').DataTable({

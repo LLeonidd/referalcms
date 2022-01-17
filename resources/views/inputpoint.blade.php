@@ -11,6 +11,27 @@
 @endsection
 
 @section('page_content')
+<!-- jQuery -->
+<script src="http://127.0.0.1:8000/bower_components/admin-lte/plugins/jquery/jquery.min.js"></script>
+<script>
+$.ajax({
+  url: 'http://127.0.0.1:8000/index.php/api/inputpoint',
+  type:"POST",
+  data:{
+    "_token": "{{ csrf_token() }}",
+    '_headers': {'host':'http://127.0.0.1:8000', 'user-agent':'', 'referer':'test.ru'},
+    '_ref':1,
+    '_session_id':'12345678',
+  },
+  success:function(response){
+    console.log(response)
+  },
+  error: function (err) {
+     console.log(err.responseJSON);
+ }
+})
+</script>
+
 @php
 
 {{
@@ -44,7 +65,6 @@
   	 if ($_GET['ref'] != '') {
 
   	   $r = _request_to_refcms($URL_REFERAL_CRM);
-       echo($r);
   	   if ($r!=null){
   	     foreach ($r->setting as $data){
   	       echo $number = $data->number;

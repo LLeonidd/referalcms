@@ -12,6 +12,7 @@ class Statistic extends Model
     public $timestamps = true;
     protected $fillable = [
         'referer_host',
+        'session_id',
         'user_agent',
         'datetime_end',
         'user_id',

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UsersPageController;
 use App\Http\Controllers\Admin\StatisticsPageController;
 use App\Http\Controllers\Admin\AccountPageController;
 use App\Http\Controllers\Admin\SettingsPageController;
+use App\Http\Controllers\Admin\SitesPageController;
 use App\Http\Controllers\Admin\InputDataFromRefController;
 use App\Http\Controllers\Admin\Inputs\PhoneController;
 use App\Http\Controllers\Admin\Inputs\EmailController;
@@ -25,13 +26,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainPageController::class, 'index'])->middleware(['auth'])->name('home');
-Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
+//Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
 
 Route::get('/users', [UsersPageController::class, 'main'])->middleware(['auth'])->name('users');
 //Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
 Route::get('/statistics', [MainPageController::class, 'index'])->middleware(['auth'])->name('statistics');
 Route::get('/account', [AccountPageController::class, 'main'])->middleware(['auth'])->name('account');
 Route::get('/settings', [SettingsPageController::class, 'main'])->middleware(['auth'])->name('settings');
+Route::get('/sites', [SitesPageController::class, 'main'])->middleware(['auth'])->name('sites');
 Route::get('/debug', [GetDataController::class, 'debug'])->name('debug');
 
 Route::post('/phone-add', [PhoneController::class, 'store'])->middleware(['auth'])->name('phone');

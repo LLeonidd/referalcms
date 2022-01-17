@@ -28,11 +28,21 @@
         </p>
       </a>
     </li>
+    <li class="nav-header">АДМИНИСТРИРОВАНИЕ</li>
     <li class="nav-item">
       <a href="/users/" class="nav-link">
         <i class="nav-icon fas fa-users"></i>
         <p>
           Пользователи
+          <span class="right badge badge-danger"></span>
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/sites/" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+          Сайты
           <span class="right badge badge-danger"></span>
         </p>
       </a>

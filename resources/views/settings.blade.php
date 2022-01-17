@@ -18,7 +18,7 @@
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
-          <div class="inner">
+          <div class="inner item_toggle" data-toggle="setting_details">
             <h3>{{ $settings_count }}</h3>
 
             <p>Реферальные программы</p>
@@ -34,7 +34,7 @@
 
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 _toggle" id="setting_details">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Список настроек</h3>
@@ -56,7 +56,7 @@
               <tbody>
                 @foreach ($settings as $item)
                 <tr>
-                  <td><a href="?id={{ $item -> id }}">{{ $item -> settings_name }}</a></td>
+                  <td>{{ $item -> settings_name }}</td>
                   <td><a href="http://{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}">{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}</a></td>
                   <td>{{ $item -> number }}</td>
                   <td>{{ $item -> email }}</td>
@@ -104,7 +104,18 @@
 @section('scripts_after')
 <!-- Toastr -->
 <script src="{{ asset ("/bower_components/admin-lte/plugins/toastr/toastr.min.js") }}"></script>
-
+<script>
+$('.item_toggle').click(function(){
+    var id = $(this).data('toggle')
+    $('._toggle').each(function(i,item){
+      if (item.id == id){
+        $(item).toggle()
+      } else {
+        $(item).hide()
+      }
+    })
+  })
+</script>
 <script>
   $(function () {
     $('#settings_table').DataTable({
