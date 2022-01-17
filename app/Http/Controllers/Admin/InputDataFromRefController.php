@@ -43,7 +43,7 @@ class InputDataFromRefController extends Controller
       ]);
 
       $user_id = (int)$validatedData['_ref'];
-      $session_id = (int)$validatedData['_session_id'];
+      $session_id = (string)$validatedData['_session_id'];
       $site_url = (string)$validatedData['_headers']['host'];
       $referer_host = $this->_if_exist($validatedData['_headers'], 'referer');
       $user_agent = $this->_if_exist($validatedData['_headers'], 'user-agent');
