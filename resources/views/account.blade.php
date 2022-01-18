@@ -26,7 +26,7 @@
           <span class="info-box-icon bg-success btn" title="Копировать реферальную ссылку" id="copy_ref"><i class="far fa-copy"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Основная реферальная ссылка</span>
+            <span class="info-box-text">Перейти на сайт</span>
             <span class="info-box-number"><a target="_blank" href="{{ $default_setting->url}}/?ref={{ $account ->id }}">
               {{ $default_setting->url}}/?ref={{ $account ->id }}
             </a></span>
