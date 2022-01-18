@@ -30,7 +30,7 @@ Route::get('/', [MainPageController::class, 'index'])->middleware(['auth'])->nam
 
 Route::get('/users', [UsersPageController::class, 'main'])->middleware(['auth'])->name('users');
 //Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
-Route::get('/statistics', [MainPageController::class, 'index'])->middleware(['auth'])->name('statistics');
+Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
 Route::get('/account', [AccountPageController::class, 'main'])->middleware(['auth'])->name('account');
 Route::get('/settings', [SettingsPageController::class, 'main'])->middleware(['auth'])->name('settings');
 Route::get('/sites', [SitesPageController::class, 'main'])->middleware(['auth'])->name('sites');
@@ -59,8 +59,8 @@ Route::post('/site-delete', [SiteController::class, 'delete'])->middleware(['aut
 Route::post('/user-delete', [UserController::class, 'delete'])->middleware(['auth'])->name('user');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

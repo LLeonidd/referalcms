@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Statistic;
+use App\Models\Setting;
 
 class MainPageController extends Controller
 {
@@ -18,8 +19,12 @@ class MainPageController extends Controller
      */
     public function index()
     {
+      $default_setting = Setting::join('sites', 'site_id', 'sites.id')->where(['user_id' => Auth::user()->id, 'default'=>true])->first();
+
+      
       $content = [
         'user' => Auth::user(),
+        'default_setting' => $default_setting,
         'statistics' => Statistic::select([
           "referer_host",
           "sites.url as url",

@@ -24,7 +24,7 @@
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
-          <div class="inner">
+          <div class="inner item_toggle" data-toggle="site_details">
             <h3>{{ $sites_count }}</h3>
 
             <p>Доступные сайты</p>
@@ -32,7 +32,7 @@
           <div class="icon">
             <i class="ion ion-plus"></i>
           </div>
-          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal_site">Добавить сайт <i class="fas fa-plus-circle"></i></a>
+          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal_site"><small class="badge badge-danger"><i class="far fa-clock"></i> В работе</small> Добавить сайт <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -40,7 +40,7 @@
 
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 _toggle" id="site_details">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Список сайтов</h3>
@@ -75,7 +75,7 @@
 
                 @endforeach
 
-              </tfoot>
+              </tbody>
             </table>
           </div>
           <!-- /.card-body -->
@@ -110,6 +110,19 @@
         //size: ()
       }).setSize(800, 300);
 
+    })
+  })
+</script>
+<script src="{{ asset ("/bower_components/admin-lte/plugins/toastr/toastr.min.js") }}"></script>
+<script>
+$('.item_toggle').click(function(){
+    var id = $(this).data('toggle')
+    $('._toggle').each(function(i,item){
+      if (item.id == id){
+        $(item).toggle()
+      } else {
+        $(item).hide()
+      }
     })
   })
 </script>

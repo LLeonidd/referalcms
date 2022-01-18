@@ -40,14 +40,16 @@ class InputDataFromRefController extends Controller
           '_headers.host' => ['required', 'max:300'],
           '_headers.user-agent' => ['nullable','max:200'],
           '_headers.referer' => ['nullable','max:200'],
+          '_headers.x-forwarded-proto'=>['required', 'max:6']
       ]);
 
       $user_id = (int)$validatedData['_ref'];
       $session_id = (string)$validatedData['_session_id'];
+      $protocol = (string)$validatedData['_headers']['x-forwarded-proto'];
       $site_url = (string)$validatedData['_headers']['host'];
       $referer_host = $this->_if_exist($validatedData['_headers'], 'referer');
       $user_agent = $this->_if_exist($validatedData['_headers'], 'user-agent');
-
+      $summary_url = $protocol.'://'.$site_url;
 
       if (User::pluck('id')->containsStrict($user_id)){ //Check if user in db safety
         $statistic_id = Statistic::create([
@@ -55,7 +57,7 @@ class InputDataFromRefController extends Controller
           'user_agent' => $user_agent,
           'session_id' => $session_id,
           'user_id' => User::select('id')->find($user_id)->id,
-          'site_id' => Site::select('id')->where('url',$site_url)->limit(1)->value('id'),
+          'site_id' => Site::select('id')->where('url',$summary_url)->limit(1)->value('id'),
         ]);
       }
 
@@ -74,7 +76,7 @@ class InputDataFromRefController extends Controller
               ->leftJoin('addresses', 'settings.address_id', '=', 'addresses.id')
               ->leftJoin('emails', 'settings.email_id', '=', 'emails.id')
               ->where('settings.user_id',$user_id)
-              ->where('sites.url', $site_url)->limit(1)->get();
+              ->where('sites.url', $summary_url)->limit(1)->get();
 
       return [
         'setting' => ReferalResource::collection($res),
