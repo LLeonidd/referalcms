@@ -74,8 +74,8 @@ class PhoneController extends Controller
 
       $validated = $request->validate([
           'id'=>['required', 'max:50'],
-          'phone_edit_number' => ['required', 'max:20', new UniqueField(new Phone, 'number')],
-          'phone_edit_message' => ['nullable', 'max:200'],
+          'phone_number' => ['required', 'max:20', new UniqueField(new Phone, 'number')],
+          'phone_message' => ['nullable', 'max:200'],
       ]);
 
       $phone = new Phone;
@@ -84,8 +84,8 @@ class PhoneController extends Controller
             'user_id' => Auth::user()->id,
             ])
             ->update([
-                'number' => $request->phone_edit_number,
-                'message' => $request->phone_edit_message,
+                'number' => $request->phone_number,
+                'message' => $request->phone_message,
               ]);
 
       return response()->json(['success'=>'Телефон успешно обновлен']);
@@ -107,7 +107,4 @@ class PhoneController extends Controller
 
       return response()->json(['success'=>'Телефон успешно удален']);
     }
-
-
-
 }

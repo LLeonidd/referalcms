@@ -75,7 +75,7 @@
           <div class="icon">
             <i class="ion ion-android-call"></i>
           </div>
-          <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#modal_phone">Добавить телефон <i class="fas fa-plus-circle"></i></a>
+          <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#modal_phone" data-action="add">Добавить телефон <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -89,7 +89,7 @@
           <div class="icon">
             <i class="ion ion-android-mail"></i>
           </div>
-          <a href="add_email/" class="small-box-footer" data-toggle="modal" data-target="#modal_email">Добавить email <i class="fas fa-plus-circle"></i></a>
+          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal_email" data-action="add">Добавить email <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -103,7 +103,7 @@
           <div class="icon">
             <i class="ion ion-android-locate"></i>
           </div>
-          <a href="add_address/" class="small-box-footer" data-toggle="modal" data-target="#modal_address">Добавить адрес<i class="fas fa-plus-circle"></i></a>
+          <a href="add_address/" class="small-box-footer" data-toggle="modal" data-target="#modal_address"  data-action="add">Добавить адрес<i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -137,7 +137,7 @@
                 <td class="phone_number_value">{{ $phone -> number }}</td>
                 <td class="phone_message_value">{{ $phone -> message }} </td>
                 <td class="project-actions text-right">
-                  <a class="btn btn-info btn-sm phone_edit_btn"  href="#" data-id="{{ $phone->id }}" data-toggle="modal" data-target="#modal_phone_edit">
+                  <a class="btn btn-info btn-sm phone_edit_btn"  href="#" data-id="{{ $phone->id }}" data-toggle="modal" data-target="#modal_phone"  data-action="edit" >
                       <i class="fas fa-pencil-alt">
                       </i>
                       Изменить
@@ -177,9 +177,9 @@
               @foreach ($account -> email as $email)
               <tr>
                 <td>{{ $email -> id }} </td>
-                <td>{{ $email -> email }} </td>
+                <td class="email_value">{{ $email -> email }} </td>
                 <td class="project-actions text-right">
-                  <a class="btn btn-info btn-sm" href="edit_email/?id={{ $email -> id }}">
+                  <a class="btn btn-info btn-sm email_edit_btn"  href="#" data-id="{{ $email->id }}" data-toggle="modal" data-target="#modal_email"  data-action="edit" >
                       <i class="fas fa-pencil-alt">
                       </i>
                       Изменить
@@ -217,9 +217,9 @@
                 <tbody>
                 @foreach ($account -> address as $address)
                 <tr>
-                  <td>{{ $address -> address }} </td>
+                  <td class="address_value">{{ $address -> address }} </td>
                   <td class="project-actions text-right">
-                    <a class="btn btn-info btn-sm" href="edit_address/?id={{ $address -> id }}">
+                    <a class="btn btn-info btn-sm address_edit_btn"  href="#" data-id="{{ $address->id }}" data-toggle="modal" data-target="#modal_address"  data-action="edit" >
                         <i class="fas fa-pencil-alt">
                         </i>
                         Изменить
@@ -249,7 +249,6 @@
 
 @include('inc/modals/user')
 @include('inc/modals/phone')
-@include('inc/modals/phone_edit')
 @include('inc/modals/email')
 @include('inc/modals/address')
 

@@ -59,8 +59,8 @@
           <!-- /.card-body -->
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-        <button type="button" class="btn btn-primary" id="add_setting_btn">Создать</button>
+        <button type="button" class="btn btn-default _button_modal" data-dismiss="modal" id="action_setting_btn">Закрыть</button>
+        <button type="button" class="btn btn-primary _button_modal" id="add_setting_btn">Создать</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -72,9 +72,48 @@
 
 @push('scripts_after')
 <script>
+$('#modal_setting').on('show.bs.modal', function (event) {
+  var $button = $(event.relatedTarget) // Button that triggered the modal
+  var $action = $button.data('action') // Extract info from data-* attributes
+  var $modal = $(this)
+  if ($action=='add'){
+    $modal.find('.modal-title').text('Создать Настройки')
+    $modal.find('#add_setting_btn').text('Добавить')
+    $modal.find('#action_setting_btn').text('Закрыть')
+    $modal.find('#action_setting_btn').removeClass('btn-danger');
+    $modal.find('#action_setting_btn').addClass('btn-default');
+    $modal.find('#action_setting_btn').data('action', 'close');
+    $modal.find('#add_setting_btn').data('action', $action);
+    $modal.data('id', '');
+  } else if ($action=='edit'){
+    $modal.find('.modal-title').text('Обновить Настройки')
+    $modal.find('#add_setting_btn').text('Обновить')
+    $modal.find('#action_setting_btn').text('Удалить')
+    $modal.find('#action_setting_btn').removeClass('btn-default');
+    $modal.find('#action_setting_btn').addClass('btn-danger');
+    $modal.find('#action_setting_btn').data('action', 'delete');
+    $modal.find('#add_setting_btn').data('action', $action);
+    $modal.data('id', $button.data('id'));
+    $setting_name = $button.parents('tr').find('.setting_name').html();
+    $setting_site = $button.parents('tr').find('.setting_site').data('val');
+    $setting_number = $button.parents('tr').find('.setting_number').data('val');
+    $setting_email = $button.parents('tr').find('.setting_email').data('val');
+    $setting_address = $button.parents('tr').find('.setting_address').data('val');
+    $setting_enabled = $button.parents('tr').find('.setting_enabled').data('val');
+
+    $modal.find('#name_setting').val($setting_name)
+    $modal.find('#site_id').val($setting_site)
+    $modal.find(`#site_id option[data-id=${$setting_site}]`).prop('selected', true)
+    $modal.find(`#phone_id option[data-id=${$setting_number}]`).prop('selected', true)
+    $modal.find(`#email_id option[data-id=${$setting_email}]`).prop('selected', true)
+    $modal.find(`#address_id option[data-id=${$setting_address}]`).prop('selected', true)
+
+  }
+
+})
 
 
-$('#add_setting_btn').click(function(){
+$('#modal_setting ._button_modal').click(function(){
   let $modal = $('#modal_setting');
   let $form = $('#setting_form');
   let $button = $(this);
@@ -84,24 +123,31 @@ $('#add_setting_btn').click(function(){
   let $phone_id = $('#phone_id option:selected').data('id');
   let $email_id = $('#email_id option:selected').data('id');
   let $address_id = $('#address_id option:selected').data('id');
-  let $url = "/index.php/setting-add";
   let $user_id = "{{ Auth::user()->id }}";
+  let $id = $modal.data('id')
+  if ($button.data('action') == 'close'){return}
+  let $url = "/index.php/setting-"+$button.data('action');
+
+  let $data = {
+    "_token": "{{ csrf_token() }}",
+    id: $id,
+    user_id: $user_id,
+    enabled: $setting_enabled,
+    name_setting: $name_setting,
+    site_id: $site_id,
+    phone_id: $phone_id,
+    email_id: $email_id,
+    address_id: $address_id,
+  }
+  console.log($data, $url)
+
 
   if (!$button.hasClass('disabled')){
      $button.addClass('disabled');
      $.ajax({
        url: $url,
        type: "POST",
-       data: {
-         "_token": "{{ csrf_token() }}",
-         user_id: $user_id,
-         enabled: $setting_enabled,
-         name_setting: $name_setting,
-         site_id: $site_id,
-         phone_id: $phone_id,
-         email_id: $email_id,
-         address_id: $address_id,
-       },
+       data: $data,
        success:function(response){
          toastr.success(response.success);
          $modal.modal('toggle');

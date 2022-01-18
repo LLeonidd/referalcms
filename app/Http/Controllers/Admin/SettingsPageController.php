@@ -18,6 +18,10 @@ class SettingsPageController extends Controller
   {
     $settings = Setting::select([
                     'settings.id as id',
+                    'settings.site_id as site_id',
+                    'settings.phone_id as phone_id',
+                    'settings.email_id as email_id',
+                    'settings.address_id as address_id',
                     'settings.enabled as enabled',
                     'settings.name as settings_name',
                     'settings.user_id as setting_user_id',

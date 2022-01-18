@@ -35,7 +35,10 @@
           <img src="{{ asset ("/bower_components/admin-lte/dist/img/default-150x150.png") }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="/account/" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="/account/" class="d-block">{{ Auth::user()->name }}
+            @if (Auth::user()->is_admin)<small class="badge badge-success"><i class="far fa-ok"></i>Admin</small>
+            @endif
+          </a>
         </div>
       </div>
 

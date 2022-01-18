@@ -2,19 +2,19 @@
 <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item">
-      <a href="/statistics/" class="nav-link">
-        <i class="nav-icon fas fa-chart-line"></i>
+      <a href="/account/" class="nav-link">
+        <i class="nav-icon fas fa-user"></i>
         <p>
-          Статистика
+          Учетная запись
           <span class="right badge badge-danger"></span>
         </p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="/account/" class="nav-link">
-        <i class="nav-icon fas fa-user"></i>
+      <a href="/statistics/" class="nav-link">
+        <i class="nav-icon fas fa-chart-line"></i>
         <p>
-          Учетная запись
+          Статистика
           <span class="right badge badge-danger"></span>
         </p>
       </a>
@@ -28,6 +28,7 @@
         </p>
       </a>
     </li>
+    @if (Auth::user()->is_admin)
     <li class="nav-header">АДМИНИСТРИРОВАНИЕ</li>
     <li class="nav-item">
       <a href="/users/" class="nav-link">
@@ -47,6 +48,7 @@
         </p>
       </a>
     </li>
+    @endif
   </ul>
 </nav>
 <!-- /.sidebar-menu -->

@@ -22,14 +22,10 @@ class EmailController extends Controller
 
        try {
            DB::beginTransaction();
-
            $email = new Email;
-
            $email->email = $request->email_address;
            $email->user_id = Auth::user()->id;
            $email->save();
-
-
            $setting = Setting::join('sites', 'site_id', 'sites.id')->where(['user_id'=>Auth::user()->id, 'default'=>true]);
            if ($setting->count()==0){
              // Создаем дефолтную настройку
@@ -47,15 +43,30 @@ class EmailController extends Controller
                 $setting->update(['email_id'=>$email->id]);
              }
            }
-
            DB::commit();
-
        } catch( \Exaption $exaption ){
          DB::rollBack();
          return $exaption;
        }
-
       return response()->json(['success'=>'Email успешно добавлен']);
+    }
 
+
+    public function update(Request $request)
+    {
+      $validated = $request->validate([
+          'id'=>['required', 'max:10'],
+          'email_address' => ['max:50', 'nullable'],
+      ]);
+      Email::where([ 'id' => $request->id, 'user_id' => Auth::user()->id,])->update(['email' => $request->email_address,]);
+      return response()->json(['success'=>'Email успешно обновлен']);
+    }
+
+
+    public function delete(Request $request)
+    {
+      $validated = $request->validate(['id'=>['required', 'max:50'],]);
+      Email::where(['id' => $request->id, 'user_id' => Auth::user()->id,])->delete();
+      return response()->json(['success'=>'Email успешно удален']);
     }
 }

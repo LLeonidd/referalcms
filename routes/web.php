@@ -26,15 +26,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainPageController::class, 'index'])->middleware(['auth'])->name('home');
-//Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
-
-Route::get('/users', [UsersPageController::class, 'main'])->middleware(['auth'])->name('users');
-//Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
+Route::get('/users', [UsersPageController::class, 'main'])->middleware(['auth', 'is_admin'])->name('users');
 Route::get('/statistics', [StatisticsPageController::class, 'main'])->middleware(['auth'])->name('statistics');
 Route::get('/account', [AccountPageController::class, 'main'])->middleware(['auth'])->name('account');
 Route::get('/settings', [SettingsPageController::class, 'main'])->middleware(['auth'])->name('settings');
-Route::get('/sites', [SitesPageController::class, 'main'])->middleware(['auth'])->name('sites');
-Route::get('/debug', [GetDataController::class, 'debug'])->name('debug');
+Route::get('/sites', [SitesPageController::class, 'main'])->middleware(['auth', 'is_admin'])->name('sites');
 
 Route::post('/phone-add', [PhoneController::class, 'store'])->middleware(['auth'])->name('phone');
 Route::post('/email-add', [EmailController::class, 'store'])->middleware(['auth'])->name('email');
@@ -50,7 +46,6 @@ Route::post('/setting-edit', [SettingController::class, 'update'])->middleware([
 Route::post('/site-edit', [SiteController::class, 'update'])->middleware(['auth'])->name('site');
 Route::post('/user-edit', [UserController::class, 'update'])->middleware(['auth'])->name('user');
 
-
 Route::post('/phone-delete', [PhoneController::class, 'delete'])->middleware(['auth'])->name('phone');
 Route::post('/email-delete', [EmailController::class, 'delete'])->middleware(['auth'])->name('email');
 Route::post('/address-delete', [AddressController::class, 'delete'])->middleware(['auth'])->name('address');
@@ -58,9 +53,7 @@ Route::post('/setting-delete', [SettingController::class, 'delete'])->middleware
 Route::post('/site-delete', [SiteController::class, 'delete'])->middleware(['auth'])->name('site');
 Route::post('/user-delete', [UserController::class, 'delete'])->middleware(['auth'])->name('user');
 
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+//Route::get('/inputpoint/', [InputDataFromRefController::class, 'main'])->name('inputpoint');
+//Route::get('/debug', [GetDataController::class, 'debug'])->name('debug');
 
 require __DIR__.'/auth.php';

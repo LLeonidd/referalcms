@@ -28,7 +28,7 @@
           <div class="icon">
             <i class="ion ion-plus"></i>
           </div>
-          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal_setting">Создать программу <i class="fas fa-plus-circle"></i></a>
+          <a href="#" class="small-box-footer" data-toggle="modal" data-action="add" data-target="#modal_setting">Создать программу <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -58,12 +58,12 @@
               <tbody>
                 @foreach ($settings as $item)
                 <tr>
-                  <td>{{ $item -> settings_name }}</td>
-                  <td><a href="http://{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}">{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}</a></td>
-                  <td>{{ $item -> number }}</td>
-                  <td>{{ $item -> email }}</td>
-                  <td>{{ $item -> address }}</td>
-                  <td>
+                  <td class="setting_name">{{ $item -> settings_name }}</td>
+                  <td class="setting_site" data-val="{{ $item->site_id}}"><a href="http://{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}">{{ $item -> sites_url }}/?ref={{$item->setting_user_id}}</a></td>
+                  <td class="setting_number" data-val="{{ $item->phone_id}}">{{ $item -> number }}</td>
+                  <td class="setting_email" data-val="{{ $item->email_id}}">{{ $item -> email }}</td>
+                  <td class="setting_address" data-val="{{ $item->address_id}}">{{ $item -> address }}</td>
+                  <td class="setting_enabled"  data-val="{{ $item->enabled}}">
                     <div class="form-group">
                       <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="_enabled_{{ $item->id }}" @if($item->enabled) checked="" @endif >
@@ -72,7 +72,7 @@
                     </div>
                   </td>
                   <td class="project-actions text-right">
-                    <a class="btn btn-info btn-sm" href="?id={{ $item -> id }}">
+                    <a class="btn btn-info btn-sm setting_edit_btn"  href="#" data-id="{{ $item->id }}" data-toggle="modal" data-target="#modal_setting"  data-action="edit" >
                         <i class="fas fa-pencil-alt">
                         </i>
                         Изменить
