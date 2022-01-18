@@ -1,5 +1,7 @@
 @extends('inc.wrapper')
-@section('_title', 'Пользователи | referalCMS')
+@section('_title')
+Пользователи | {{ config('app.name', 'Laravel') }}
+@endsection
 @section('page_title')
   <h1>Зарегестрированные пользователи</h1>
 @endsection

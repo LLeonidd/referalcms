@@ -40,7 +40,7 @@
     </li>
     <li class="nav-item">
       <a href="/sites/" class="nav-link">
-        <i class="nav-icon fas fa-users"></i>
+        <i class="nav-icon fas fa-globe"></i>
         <p>
           Сайты
           <span class="right badge badge-danger"></span>

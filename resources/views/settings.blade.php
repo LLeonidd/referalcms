@@ -1,5 +1,7 @@
 @extends('inc.wrapper')
-@section('_title', 'Настройки | referalCMS')
+@section('_title')
+Настройки | {{ config('app.name', 'Laravel') }}
+@endsection
 @section('page_title')
   <h1>Настройки реферьной программы</h1>
 @endsection

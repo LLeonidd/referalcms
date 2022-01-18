@@ -1,5 +1,7 @@
 @extends('inc.wrapper')
-@section('_title', 'Аккаунт | referalCMS')
+@section('_title')
+Учетная запись | {{ config('app.name', 'Laravel') }}
+@endsection
 @section('page_title')
   <h1>Учетная запись</h1>
 @endsection

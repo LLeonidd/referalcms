@@ -24,7 +24,7 @@
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
       <img src="{{ asset ("/bower_components/admin-lte/dist/img/AdminLTELogo.png") }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ __('ReferalCMS')}}</span>
+      <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
     </a>
 
     <!-- Sidebar -->

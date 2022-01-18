@@ -1,5 +1,7 @@
 @extends('inc.wrapper')
-@section('_title', 'Симулятор реферала | referalCMS')
+@section('_title')
+Симулятор | {{ config('app.name', 'Laravel') }}
+@endsection
 @section('page_title')
   <h1>Симулятор реферала</h1>
 @endsection

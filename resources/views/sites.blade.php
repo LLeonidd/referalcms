@@ -1,5 +1,7 @@
 @extends('inc.wrapper')
-@section('_title', 'Статистика переходов | referalCMS')
+@section('_title')
+Доступные сайты | {{ config('app.name', 'Laravel') }}
+@endsection
 @section('page_title')
   <h1>Доступные сайты</h1>
 @endsection

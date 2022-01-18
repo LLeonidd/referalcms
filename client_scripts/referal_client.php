@@ -9,6 +9,7 @@ function _request_to_refcms($url){
 	$data = json_encode(array(
 		'_headers' => array_change_key_case(getallheaders()),//
 		'_ref' => $_GET['ref'] ?? NULL,
+		'_session_id' => session_id(),
 	));
 	$ch = curl_init($url);
 	curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
@@ -25,13 +26,14 @@ if(!empty($_GET['ref'])){
 	 if ($_GET['ref'] != '') {
 	   $r = _request_to_refcms($URL_REFERAL_CRM);
 	   if ($r!=null){
-			 $_SESSION['ref_login']=true;
 	     foreach ($r->setting as $data){
+				 $_SESSION['ref_login']=true;
 	       $_SESSION['number'] = $data->number;
 	       $_SESSION['address'] = $data->address;
 	       $_SESSION['email'] = $data->email;
 	       $_SESSION['message'] = $data->message;
 	       $_SESSION['rules'] = $data->rules;
+				 $_SESSION['ref_id'] = $data->ref_id;
 	     }
 	     $_SESSION['statistic_id'] = $r->statistic_id;
 	   }
@@ -54,6 +56,8 @@ if ($_SESSION['ref_login'] == true){?>
 	 _phone_number_raw = '<?php echo $_SESSION['number'];?>'
 	 _phone_number_human = formatPhoneNumber('<?php echo $_SESSION['number'];?>')
 	 _whats_app_message = '<?php echo $_SESSION['message']; ?>'
+	 _address = '<?php echo $_SESSION['address']; ?>'
+	 _email = '<?php echo $_SESSION['email']; ?>'
 	 _address = '<?php echo $_SESSION['address']; ?>'
 
 	 eval("<?php echo $_SESSION['rules'];?>")
