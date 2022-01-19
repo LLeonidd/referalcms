@@ -138,9 +138,7 @@
                 <td class="phone_message_value">{{ $phone -> message }} </td>
                 <td class="project-actions text-right">
                   <a class="btn btn-info btn-sm phone_edit_btn"  href="#" data-id="{{ $phone->id }}" data-toggle="modal" data-target="#modal_phone"  data-action="edit" >
-                      <i class="fas fa-pencil-alt">
-                      </i>
-                      Изменить
+                    <x-ui.change-button />
                   </a>
                 </td>
               </tr>
@@ -180,9 +178,7 @@
                 <td class="email_value">{{ $email -> email }} </td>
                 <td class="project-actions text-right">
                   <a class="btn btn-info btn-sm email_edit_btn"  href="#" data-id="{{ $email->id }}" data-toggle="modal" data-target="#modal_email"  data-action="edit" >
-                      <i class="fas fa-pencil-alt">
-                      </i>
-                      Изменить
+                    <x-ui.change-button />
                   </a>
                 </td>
               </tr>
@@ -220,9 +216,7 @@
                   <td class="address_value">{{ $address -> address }} </td>
                   <td class="project-actions text-right">
                     <a class="btn btn-info btn-sm address_edit_btn"  href="#" data-id="{{ $address->id }}" data-toggle="modal" data-target="#modal_address"  data-action="edit" >
-                        <i class="fas fa-pencil-alt">
-                        </i>
-                        Изменить
+                      <x-ui.change-button />
                     </a>
                   </td>
                 </tr>
@@ -247,10 +241,10 @@
   </div>
 </section>
 
-@include('inc/modals/user')
-@include('inc/modals/phone')
-@include('inc/modals/email')
-@include('inc/modals/address')
+  @include('inc/modals/user')
+  @include('inc/modals/phone')
+  @include('inc/modals/email')
+  @include('inc/modals/address')
 
 @endsection
 
@@ -285,43 +279,10 @@ $('.item_toggle').click(function(){
 </script>
 <script>
   $(function () {
-    $('#phones_table').DataTable({
-      "paging": false,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "order":[[0, 'desc']],
-      "aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }],
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-  $(function () {
-    $('#emails_table').DataTable({
-      "paging": false,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "order":[[0, 'desc']],
-      "aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }],
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-  $(function () {
-    $('#addresses_table').DataTable({
-      "paging": false,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-
+    ['#phones_table', '#emails_table', '#addresses_table'].forEach(function(id){
+      dt_primaty(id)
+    })
+  })
 </script>
 
 @endpush

@@ -73,9 +73,7 @@
                   </td>
                   <td class="project-actions text-right">
                     <a class="btn btn-info btn-sm setting_edit_btn"  href="#" data-id="{{ $item->id }}" data-toggle="modal" data-target="#modal_setting"  data-action="edit" >
-                        <i class="fas fa-pencil-alt">
-                        </i>
-                        Изменить
+                      <x-ui.change-button />
                     </a>
                   </td>
                 </tr>
@@ -120,16 +118,7 @@ $('.item_toggle').click(function(){
 </script>
 <script>
   $(function () {
-    $('#settings_table').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-      "buttons": [{extend:"copy", text:"Копировать"},"csv", "excel", "pdf", ]
-    }).buttons().container().appendTo('#settings_table_wrapper .col-md-6:eq(0)');
-  });
+    dt_primaty('#settings_table');
+  })
 </script>
 @endsection

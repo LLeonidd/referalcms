@@ -77,33 +77,7 @@
 @section('scripts_after')
 <script>
   $(function () {
-    $('#statistics_table').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      'iDisplayLength': 50,
-      "searching": true,
-      "ordering": true,
-      "order": [[ 2, "desc" ]],
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-      "language": {
-        "search": "Поиск:",
-        "info":           "Показано _START_ из _END_ всего _TOTAL_ записей",
-        "infoEmpty":      "Показано 0 из 0 всего 0 записей",
-        "infoPostFix":    "",
-        "thousands":      ",",
-        "lengthMenu":     "Показать записей: _MENU_",
-        "zeroRecords":    "Не найдено записей",
-        "paginate": {
-            "first":      "В начало",
-            "last":       "В конец",
-            "next":       "Следующая",
-            "previous":   "Назад"
-        },
-      },
-      "buttons": [{extend:"copy", text:"Копировать"},"csv", "excel", "pdf", {extend:"print", text:"Печатать"}, {extend:"colvis", text:"Отображать"}]
-    }).buttons().container().appendTo('#statistics_table_wrapper .col-md-6:eq(0)');
-  });
+    dt_primaty('#statistics_table');
+  })
 </script>
 @endsection

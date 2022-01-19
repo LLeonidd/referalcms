@@ -33,6 +33,47 @@
 <script src="{{ asset ("/bower_components/admin-lte/plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
 <script src="{{ asset ("/bower_components/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
 
+<script>
+  //hooks
+  var remove_default = function(api, node, config){$(node).removeClass('btn-secondary')}
+  var toolbar_buttons = [
+    {extend:"copy", text:"<i class='fa fa-copy'></i>", title:"Копировать", className:"btn-default", init:remove_default },
+    {extend:"csv", text:"<i class='fas fa-file-csv'></i>", title:"Экспорт в CSV", className:"btn-default", init:remove_default },
+    {extend:"excel", text:"<i class='far fa-file-excel'></i>", title:"Экспорт в EXCEL", className:"btn-default",init:remove_default },
+    {extend:"pdf", text:"<i class='far fa-file-pdf'></i>", title:"Экспорт в PDF", className:"btn-default",init:remove_default },
+    {extend:"print", text:"<i class='fas fa-print'></i>", title:"Отправить на печать", className:"btn-default",init:remove_default },
+    {extend:"colvis", text:"<i class='fas fa-sliders-h'></i>", title:"Отображать колонки", className:"btn-default",init:remove_default }
+  ]
+  var table_languages = {
+    "search": "Поиск:",
+    "info":           "Показано _START_ из _END_ всего _TOTAL_ записей",
+    "infoEmpty":      "Показано 0 из 0 всего 0 записей",
+    "infoPostFix":    "",
+    "thousands":      ",",
+    "lengthMenu":     "Показать записей: _MENU_",
+    "zeroRecords":    "Не найдено записей",
+    "paginate": {
+        "first":      "В начало",
+        "last":       "В конец",
+        "next":       "Следующая",
+        "previous":   "Назад"
+    },
+  }
+  var dt_primaty = function(table_id){
+    $(table_id).DataTable({
+      "paging": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      'iDisplayLength': 50,
+      "language": table_languages,
+      "buttons": toolbar_buttons,
+    }).buttons().container().appendTo(`${table_id}_wrapper .col-md-6:eq(0)`);
+  }
+</script>
+
 @yield('scripts_after')
 @stack('scripts_after')
 </body>

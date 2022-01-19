@@ -97,16 +97,7 @@ $('.item_toggle').click(function(){
 </script>
 <script>
   $(function () {
-    $('#users_table').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-      "buttons": [{extend:"copy", text:"Копировать"},"csv", "excel", "pdf", ]
-    }).buttons().container().appendTo('#users_table_wrapper .col-md-6:eq(0)');
-  });
+    dt_primaty('#statistics_table');
+  })
 </script>
 @endsection

@@ -57,17 +57,7 @@
 @section('scripts_after')
 <script>
   $(function () {
-    $('#statistics_table').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "order": [[ 3, "desc" ]],
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-      "buttons": [{extend:"copy", text:"Копировать"},"csv", "excel", "pdf", {extend:"print", text:"Печатать"}, {extend:"colvis", text:"Отображать"}]
-    }).buttons().container().appendTo('#statistics_table_wrapper .col-md-6:eq(0)');
-  });
+    dt_primaty('#statistics_table');
+  })
 </script>
 @endsection
