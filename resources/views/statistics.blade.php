@@ -32,10 +32,12 @@
                 <th>Переход из</th>
                 <th>Сайт</th>
                 <!-- <th>User-Agent</th> -->
-                <!-- <th>Пользователь</th> -->
                 <th>Дата визита</th>
                 <!-- <th>Дата выхода</th> -->
                 <th>Сессия</th>
+                @if(Auth::user()->is_admin)
+                <th>Пользователь</th>
+                @endif
               </tr>
               </thead>
               <tbody>
@@ -44,10 +46,12 @@
                   <td>{{ $item_stat->referer_host }}</td>
                   <td>{{ $item_stat->url }}</td>
                   <!-- <td>{{ $item_stat->user_agent }}</td> -->
-                  <!-- <td>{{$item_stat->name}}</td> -->
                   <td>{{ $item_stat->ca }}</td>
                   <!-- <td>{{ $item_stat->ce }}</td> -->
                   <td>{{ $item_stat->session_id }}</td>
+                  @if(Auth::user()->is_admin)
+                  <td>{{$item_stat->name}}</td>
+                  @endif
                 </tr>
 
                 @endforeach
@@ -75,13 +79,29 @@
   $(function () {
     $('#statistics_table').DataTable({
       "paging": true,
-      "lengthChange": false,
+      "lengthChange": true,
+      'iDisplayLength': 50,
       "searching": true,
       "ordering": true,
       "order": [[ 2, "desc" ]],
       "info": true,
       "autoWidth": false,
       "responsive": true,
+      "language": {
+        "search": "Поиск:",
+        "info":           "Показано _START_ из _END_ всего _TOTAL_ записей",
+        "infoEmpty":      "Показано 0 из 0 всего 0 записей",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "lengthMenu":     "Показать записей: _MENU_",
+        "zeroRecords":    "Не найдено записей",
+        "paginate": {
+            "first":      "В начало",
+            "last":       "В конец",
+            "next":       "Следующая",
+            "previous":   "Назад"
+        },
+      },
       "buttons": [{extend:"copy", text:"Копировать"},"csv", "excel", "pdf", {extend:"print", text:"Печатать"}, {extend:"colvis", text:"Отображать"}]
     }).buttons().container().appendTo('#statistics_table_wrapper .col-md-6:eq(0)');
   });

@@ -31,3 +31,7 @@
 .item_toggle{
   cursor:pointer;
 }
+
+table{
+  font-size:12px;
+}
