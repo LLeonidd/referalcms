@@ -18,5 +18,5 @@ use App\Http\Controllers\Admin\InputDataFromRefController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//Route::post('/inputpoint', [InputDataFromRefController::class, 'refdata_store'])->name('inputpoint.refdata_store');
+Route::post('/inputpoint', [InputDataFromRefController::class, 'refdata_store'])->name('inputpoint.refdata_store');
 #Route::post('/inputpoint/', [InputDataFromRefController::class, 'refdata_store'])->name('inputpoint.refdata_store');
