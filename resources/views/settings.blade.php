@@ -118,7 +118,7 @@ $('.item_toggle').click(function(){
 </script>
 <script>
   $(function () {
-    dt_primaty('#settings_table');
+    dt_primary('#settings_table');
   })
 </script>
 @endsection

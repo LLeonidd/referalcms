@@ -279,8 +279,10 @@ $('.item_toggle').click(function(){
 </script>
 <script>
   $(function () {
-    ['#phones_table', '#emails_table', '#addresses_table'].forEach(function(id){
-      dt_primaty(id)
+    [['#phones_table',],
+      ['#emails_table',],
+      ['#addresses_table',]].forEach(function([id, ordering]){
+      dt_primary(id)
     })
   })
 </script>

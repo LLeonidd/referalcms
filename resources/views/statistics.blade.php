@@ -77,7 +77,7 @@
 @section('scripts_after')
 <script>
   $(function () {
-    dt_primaty('#statistics_table');
+    dt_primary('#statistics_table', ordering=[[2,'desc']]);
   })
 </script>
 @endsection

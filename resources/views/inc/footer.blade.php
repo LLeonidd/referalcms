@@ -59,11 +59,12 @@
         "previous":   "Назад"
     },
   }
-  var dt_primaty = function(table_id){
-    $(table_id).DataTable({
+  var dt_primary = function(table_id, ordering=null){
+    return $(table_id).DataTable({
       "paging": true,
       "searching": true,
       "ordering": true,
+      "order": ordering ? ordering:[[0, 'asc']],
       "info": true,
       "autoWidth": false,
       "responsive": true,
