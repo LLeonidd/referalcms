@@ -31,11 +31,11 @@
               <tr>
                 <th>Переход из</th>
                 <th>Сайт</th>
-                <!-- <th>User-Agent</th> -->
                 <th>Дата визита</th>
                 <!-- <th>Дата выхода</th> -->
-                <th>Сессия</th>
+                <th>User-Agent</th>
                 @if(Auth::user()->is_admin)
+                <th>Сессия</th>
                 <th>Пользователь</th>
                 @endif
               </tr>
@@ -45,11 +45,11 @@
                 <tr>
                   <td>{{ $item_stat->referer_host }}</td>
                   <td>{{ $item_stat->url }}</td>
-                  <!-- <td>{{ $item_stat->user_agent }}</td> -->
                   <td>{{ $item_stat->ca }}</td>
                   <!-- <td>{{ $item_stat->ce }}</td> -->
-                  <td>{{ $item_stat->session_id }}</td>
+                  <td>{{ $item_stat->user_agent }}</td>
                   @if(Auth::user()->is_admin)
+                  <td>{{ $item_stat->session_id }}</td>
                   <td>{{$item_stat->name}}</td>
                   @endif
                 </tr>
