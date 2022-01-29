@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+vi <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -17,7 +17,7 @@ In addition to the standard statistics of visits on referral links, the system p
 ## Main pages of the system:
 ### User control panel
 
-![Image alt](https://github.com/LLeonidd/referalcms/raw/master/documentation/img/_acount.png)
+![Image alt](https://github.com/LLeonidd/referalcms/raw/master/documentation/img/_account.png)
 
 ### Statistics page
 
@@ -34,6 +34,9 @@ Displays data for:
 
 ![Image alt](https://github.com/LLeonidd/referalcms/raw/master/documentation/img/_settings.png)
 
+### Users management
+
+![Image alt](https://github.com/LLeonidd/referalcms/raw/master/documentation/img/_users.png)
 
 ## License
 
