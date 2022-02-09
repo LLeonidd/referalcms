@@ -13,6 +13,8 @@ Project of administration system for referral programs on Laravel/
 The project provides for the creation, editing, management of referral programs for various sites.
 
 In addition to the standard statistics of visits on referral links, the system provides scripts that allow you to replace phone numbers, email addresses, and other contact details on the target site.
+## ERD
+![Image alt](https://github.com/LLeonidd/referalcms/raw/master/documentation/img/_model.png)
 
 ## Main pages of the system:
 ### User control panel
